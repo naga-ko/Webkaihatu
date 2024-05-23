@@ -14,20 +14,27 @@
         <h1>お知らせ</h1>
         <?php
     $fp = fopen("info.text","r");
-
+    $body = '';
 
     if($fp){
-        $title = fgets($fp);
-        if($title){
-            echo '<p><a href="info.php">' .$title.'</a></p>';
-        }else{
-            echo'<p>お知らせはありません</p>';
-            fclose($fp);
+        while(!feof($fp)){
+            $line[] = fgets($fp);
         }
-    }else{
-        echo'<p>お知らせはありません</p>';
+        fclose($fp);
     }
 
+    if(count($line) > 0){
+        for ($i = 0;$i < count($line);$i++){
+            if($i == 0){
+                echo'<h2>' . $line[0] . '<br>';
+            }else{
+                echo $line[$i] . "<br>";
+            }
+        }
+    }else{
+        $body = 'お知らせはありません。';
+    }
+    echo '<p>' . $body . '</p>';
     ?>
 
         <!-- 本文ここまで -->
@@ -39,3 +46,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+
+p173　チェックテスト
+
+Q1フィルターポインタ
+
+Q2r+
+
+Q3
+file_get_contentsは全部読み込む
+fgetsは１行づつ読み込む
+（読み込むだけならfile_get_contentsが楽だが、
+細かい処理したい場合は、fgetsとfopen/fcloseを使う）
