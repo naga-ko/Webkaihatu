@@ -16,6 +16,13 @@
     $fp = fopen("info.text","r");
 
     $title = fgets($fp);
+
+    if($title){
+
+    }else{
+
+    }
+
     echo $title;
         echo "<hr>";
         // $line2 = fgets($fp);
@@ -27,6 +34,7 @@
         while ($line = fgets($fp)){
             echo $line . "<br>";
         }
+        fclose($fp);
     ?></p>
 
         <!-- 本文ここまで -->
