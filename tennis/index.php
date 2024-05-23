@@ -25,7 +25,7 @@
         // echo $line3;
         // echo "<hr>";
         while ($line = fgets($fp)){
-            echo $line . "<hr>";
+            echo $line . "<br>";
         }
     ?></p>
 
