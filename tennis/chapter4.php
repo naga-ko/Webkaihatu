@@ -1,7 +1,16 @@
 <?php
 $firstname = '花子';
-$lastname = '';
+$lastname = '山田';
 
+if ($firstname != "" && $lastname != "") {
+  echo "こんにちは、" . $firstname . $lastname . "さん。";
+} else if ($firstname != "" && $lastname == "") {
+  echo "こんにちは、" . $firstname  . "さん。名字を教えて下さい。";
+} else if ($lastname != "" && $firstname =="") {
+  echo "こんにちは、" . $lastname  . "さん。下の名前を教えて下さい。";
+} else if ($firstname == "" && $lastname == "") {
+  echo "名前が登録されていません。";
+}
   // (3) 教科書5章2と教科書4章4
 // $firstname と $lastname の両方にデータがあれば、
 //「こんにちは、山田花子さん。」のように表示させたい
@@ -13,19 +22,18 @@ $lastname = '';
 //「名前が登録されていません。」のように表示させたい
 
 // 教科書 p82-83ぐらい
-if ($firstname と $lastname の両方にデータがある) {
-  // こんにちは、山田花子さん。
-} else if ($firstname はあるが$lastnameがデータ無し) {
-  // こんにちは、花子さん。苗字を教えてください
-} else if ($lastname はあるが$firstnameがデータ無し) {
-  // こんにちは、山田さん。下の名前を教えてください
-} else if (どちらもデータ無し) {
-  // 名前が登録されていません。
-}
+// if ($firstname と $lastname の両方にデータがある) {
+//   // こんにちは、山田花子さん。
+// } else if ($firstname はあるが$lastnameがデータ無し) {
+//   // こんにちは、花子さん。苗字を教えてください
+// } else if ($lastname はあるが$firstnameがデータ無し) {
+//   // こんにちは、山田さん。下の名前を教えてください
+// } else if (どちらもデータ無し) {
+//   // 名前が登録されていません。
+// }
 // 条件判定を、日本語から段々とプログラムに変えていく
 // $firstname と $lastname の両方にデータがある  // 教科書 p70 &&
 // $firstname にデータがある && $lastname にデータがある
 // $firstname が ""ではない && $lastname が ""ではない
 // $firstname != "" && $lastname != ""  // 教科書 p80
-
 ?>
