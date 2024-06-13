@@ -4,10 +4,10 @@ $firstname = '花子';
 $lastname = '山田';
 
 
-if($firstname == '' or $lastname == ''){
-    echo "名前が登録されていません";
-}else{
+if($firstname != ""){
     echo "こんにちは、" . $lastname . $firstname . "さん。";
+}else{
+    echo "名前が登録されていません";
 }
 
 ?>
