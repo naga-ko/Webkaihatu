@@ -23,6 +23,8 @@ if (!preg_match("/^[0-9]{4}$/", $pass)) {
     exit(); // プログラム終了
 }
 
+setcookie('name',$name,time() + 60*60*24*30);
+
 // DBに接続。接続先、ユーザー名、パスワード
 $dsn = 'mysql:host=localhost;dbname=tennis;charset=utf8';
 $user = 'tennisuser';
