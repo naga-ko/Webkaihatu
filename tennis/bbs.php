@@ -23,6 +23,12 @@ try {
 } catch (PDOException $e){
   exit("エラー: " . $e->getMessage());
 }
+
+if(isset($_COOKIE['name'])){
+  $name = $_COOKIE['name'];
+}else{
+  $name = "";
+}
 ?>
 <!doctype html>
 <html lang="ja" >
@@ -45,7 +51,7 @@ try {
             </div>
             <div class="form-group">
                 <label>名前</label>
-                <input type="text" name="name" class="form-control">
+                <input type="text" name="name" class="form-control" value="<?php echo $name ?>">
             </div>
             <div class="form-group">
                 <textarea name="body" class="form-control" row="5"></textarea>
