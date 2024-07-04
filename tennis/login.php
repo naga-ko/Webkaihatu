@@ -33,3 +33,43 @@ if(isset($_SESSION['id'])){
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>サークルサイト</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.con/bootstrap/4.50/css/bootstrap.min.css">
+    <style type="text/css">
+        form{
+            width:100%;
+            max-width:330px;
+            padding:15px;
+            margin:auto;
+            text-align:center;
+        }
+        #name{
+            margin-bottom:-1px;
+            border-bottom-right-radius:0;
+            border-bottom-left-radius:0;
+        }
+        #password{
+            margin-bottom:10px;
+            border-top-left-radius:0;
+            border-top-right-radius:0;
+        }
+    </style>
+</head>
+<body>
+<main role="main" class="container" style="padding:60px 15px 0">
+<div>
+    <form action="login.php" method="post">
+        <h1>サークルサイト</h1>
+        <label class="sr-only">ユーザ名</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="ユーザ名">
+        <label class="sr-only">パスワード</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="パスワード">
+        <input type="submit" class="btn btn-primary btn-block" value="ログイン">
+    </form>
+</div>
+</body>
+</html>
