@@ -1,4 +1,5 @@
 <?php
+include 'includes/login.php';
 // p245-247 11-4
 // 1ページの件数
 $num = 2;

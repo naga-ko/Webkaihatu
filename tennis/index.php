@@ -2,7 +2,7 @@
 
 
 // $title には１行目が入る
-
+include 'includes/login.php';
 
 // $info = file_get_contents("info.txt");
         // ⇧ファイルからテキストデータを取ってくる
@@ -82,4 +82,3 @@ if ($fp) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
-

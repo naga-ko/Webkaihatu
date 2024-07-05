@@ -1,4 +1,7 @@
 <?php
+
+include 'includes/login.php';
+
 // p234 11-3
 // データ受け取り
 $name = $_POST['name'];
