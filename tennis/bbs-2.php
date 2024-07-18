@@ -15,11 +15,23 @@ try {
     $db = new PDO($dsn, $user, $password);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $stmt = $db->prepare("SELECT * FROM bbs ORDER BY date DESC LIMIT :page, :num");
-    // パラメータ割り当て
+    // SELECT カラム FROM テーブル // 大きさ: テーブル＞カラム
+    // SELECT id FROM bbs
+    // ORDER BY はどのカラムの値で並べるか？
+    // ASC 小さい⇨大きい　　DESC 大きい⇨小さい、の順で並べる
+    // LIMIT 何件データをとってくるか
+    // LIMIT 0, 10   //　0件目から10
+    // LIMIT 開始, 件数
+
+    // パラメータ割り当て。
     $page = ($page -1) * $num;
-    $stmt->bindParam(':page', $page, PDO::PARAM_INT);
-    $stmt->bindParam(':num', $num, PDO::PARAM_INT);
-    $stmt->execute();
+    $stmt->bindParam(':page', $page, PDO::PARAM_INT); // LIMITの開始を指定
+    $stmt->bindParam(':num', $num, PDO::PARAM_INT); // LIMITの件数を指定
+
+    //$name = "田中";
+    //echo "こんにちは" . $name . "さん。";
+
+    $stmt->execute(); // 実際に実行する　
 } catch (PDOException $e){
   exit("エラー: " . $e->getMessage());
 }
@@ -58,19 +70,39 @@ try {
 </form>
 <hr>
 <?php
+// fetch データを１行ずつ取ってくる
 while ($row = $stmt->fetch()) :?>
+<?php // var_dump($row);?>
   <div class="card">
     <div class="card-header"><?php echo $row['title']? $row['title']: '(無題)' ;?></div>
+    <?php
+    // echo $row['title']? $row['title']: '(無題)';
+    //  if文を短く書いたもので、三項演算子と呼ばれる p250
+    // if ($row['title']) {
+    //   echo $row['title']; 
+    // } else {
+    //   echo '(無題)';
+    // }
+    // echo 条件 ? 条件が真の時 : 条件が偽のとき
+
+    // if ( 条件 ) {
+    //     条件が真の時
+    // } else {
+    //     条件が偽の時
+    // }
+    ?>
     <div class="card-body">
+      <?php // 教科書 p157 で出てきた nl2brを使うことで、html上で改行表示 ?>
       <p class="card-text"><?php echo nl2br($row['body']);?></p>
     </div>
     <div class="card-footer">
+        <form action="delete.php" method="post" class="form-inline">
     <?php echo $row['name'];?>
     (<?php echo $row['date'];?>)
-    <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+    <input type="hidden" name="id" value="<?php echo $row["id"];?>">
     <input type="text" name="pass" placeholder="削除パスワード" class="form-control">
     <input type="submit" value="削除" class="btn btn-secondary">
-  </form>
+</form>
     </div>
   </div>
   <hr>
@@ -79,11 +111,17 @@ while ($row = $stmt->fetch()) :?>
 <?php
 try{
   $stmt = $db->prepare("SELECT COUNT(*) FROM bbs");
+  //                            ↑行数を数える
   $stmt->execute();
 } catch (PDOException $e){
   exit("エラー: " . $e->getMessage());
 }
-$comments = $stmt->fetchColumn();
+$comments = $stmt->fetchColumn(); // 行数（書き込みの数）を取ってきて$comments に入れる
+// $num : １ページの件数
+// 全部で３５件、１ページ１０件だったら、4ページ
+// ceil : 端数を切り上げる
+// round : 端数を四捨五入する
+// floor : 端数を切り捨てる
 $max_page = ceil($comments/ $num);
 if ($max_page >= 1) {
   echo '<nav><ul class="pagination">';

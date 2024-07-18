@@ -16,20 +16,24 @@ if (isset($_SESSION['id'])) {
   try {
     $db = new PDO($dsn, $user, $password);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    $stmt = $db->prepare("SELECT * FROM users WHERE name=:name AND password=:pass");
+    // $stmt = $db->prepare("SELECT * FROM users WHERE name=:name AND password=:pass");
+    $stmt = $db->prepare("SELECT users.id, users.name AS login_name, profiles.name AS name FROM users, profiles WHERE users.id=profiles.id AND users.name=:name AND users.password=:pass");
     // SELECT カラム FROM テーブル // 大きさ: テーブル＞カラム
     // WHERE 以降は、データ抽出する条件
 
     // パラメータ割り当て。
     $stmt->bindParam(':name', $_POST['name'], PDO::PARAM_STR);
     $pass = hash("sha256", $_POST['password']); // パスワードをハッシュ化する
-    $stmt->bindParam(':pass', $pass, PDO::PARAM_STR); //
+    $stmt->bindParam(':pass', $pass, PDO::PARAM_STR); // 
 
-    $stmt->execute(); // 実際に実行する
+    $stmt->execute(); // 実際に実行する　
 
     // ユーザー名とパスワードが一致するユーザーがいれば、ログインする
     if ($row = $stmt->fetch()) {
+        // session idを再作成
+        session_regenerate_id(true);
         $_SESSION['id'] = $row['id']; // セッションにユーザーIDを入れる
+        $_SESSION['name'] = $row['name']; 
         header('Location: index.php');
         exit();
     } else {

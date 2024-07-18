@@ -1,5 +1,7 @@
 <?php
+// includes フォルダの login.phpを読み込む
 include 'includes/login.php';
+
 ?>
 <!doctype html>
 <html lang="ja" >
@@ -14,8 +16,8 @@ include 'includes/login.php';
     <main role="main" class="container" style="padding:60px 15px 0">
       <div>
         <!-- ここから「本文」-->
-
-        <h1>サークルサイト</h1>
+<p>ログイン中のユーザ: <?php echo $_SESSION['name'];?></p>
+        <h1>お知らせ</h1>
         <?php
         // p168 9-5
 $fp = fopen("info.txt","r");
@@ -42,7 +44,7 @@ if ($fp) {
         // p169 9-6 表示する
         // $lineにデータが入っているので、表示したい
         // for(最初の一回; 終了する条件; 各ループ終了時の処理)
-        //             countは、配列の要素の数を数える
+        //             countは、配列の要素の数を数える    
         if (count($line) > 0) {
             for($i = 0; $i < count($line); $i++ ) {
                 if ($i == 0) {
@@ -68,7 +70,7 @@ if ($fp) {
   </body>
 </html>
 
-<!-- p１７３　チェックテスト
+p１７３　チェックテスト
 
 Q1 ファイルポインター
 
@@ -77,4 +79,4 @@ Q2 (p163参照) r+
 Q3 file_get_contentsは全部読み込む
 fgetsは１行ずつ読み込む
 (読み込むだけならfile_get_contentsが楽だが、
-細かい処理したい場合は、fgetsとfopen/fcloseを使う) -->
+細かい処理したい場合は、fgetsとfopen/fcloseを使う)

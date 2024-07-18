@@ -1,15 +1,23 @@
 <?php
-
+// includes フォルダの login.phpを読み込む
 include 'includes/login.php';
 
 // p234 11-3
 // データ受け取り
-$name = $_POST['name'];
+$name = $_SESSION['name'] ? $_SESSION['name'] : '(匿名さん)';
+
 $title = $_POST['title'];
 $body = $_POST['body'];
 $pass = $_POST['pass'];
+$token = $_POST['token'];
 // <input name="XXX"> ⇨ $_POST['XXX']
+// トークンのチェック
 
+if ($token != hash("sha256", session_id())) {
+    header("Location: bbs.php"); // bbs.phpへ移動する
+    exit(); // プログラム終了
+}
+    
 // 必須項目のチェック
 // 名前が空 OR 本文が空        OR は ||
 if ($name == '' || $body == '') {
@@ -25,8 +33,13 @@ if (!preg_match("/^[0-9]{4}$/", $pass)) {
     header("Location: bbs.php"); // bbs.phpへ移動する
     exit(); // プログラム終了
 }
+// 教科書p260の変更をwrite.phpに
+// ⇨ 実際に書き込む ⇨ ブラウザでcookieの情報を確認する
 
-setcookie('name',$name,time() + 60*60*24*30);
+// $nameを name に保存する。保存期間は 30 日
+// 60*60*24*30 は、60秒,60分、24時間、30日
+setcookie('name', $name, time() + 60*60*24*30);
+// setcookie(クッキー名、値、有効期限)
 
 // DBに接続。接続先、ユーザー名、パスワード
 $dsn = 'mysql:host=localhost;dbname=tennis;charset=utf8';
